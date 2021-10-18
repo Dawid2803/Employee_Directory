@@ -2,9 +2,8 @@
 
 const doc = document.querySelector("body");
 const search = document.querySelector('.search-container');
-const gallary = document.querySelector('#gallery');
-const modalContainer = document.createElement('div');
-modalContainer.className = 'modal-container';
+const gallery = document.querySelector('#gallery');
+let employees =[];
 
 
 
@@ -28,9 +27,7 @@ async function getData(url){
 
 async function getEmployeeData(url){
     const userData= await getData(url);
-
-    const employees = userData.results;
-    console.log(employees);
+    employees = userData.results;
     return employees
 
 }
@@ -42,13 +39,12 @@ addHTML(search, `
 </form>`);
 
 
-//uses the data fetched from the API and creates employee cards with required
+//uses the data fetched from the API and creates employee card objects with required
 //contact details
 getEmployeeData('https://randomuser.me/api/?results=12')
     .then(employees => {
         employees.map(employee => {
-
-            addHTML(gallary, ` 
+            addHTML(gallery, ` 
             <div class="card">
                 <div class="card-img-container">
                     <img class="card-img" src=${employee.picture.large} alt="profile picture">
@@ -58,28 +54,48 @@ getEmployeeData('https://randomuser.me/api/?results=12')
                     <p class="card-text">${employee.email}</p>
                     <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
                 </div>
-            </div>`);           
+            </div>`); 
+
+        
         })
-    })//work in progress//
-    .then(doc.addEventListener('click', (e) => {
-        if(e.target.className === "card"){
-            addHTML(modalContainer, `
-            <div class="modal">
-            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-                <div class="modal-info-container">
-                    <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-                    <h3 id="name" class="modal-name cap">name</h3>
-                    <p class="modal-text">email</p>
-                    <p class="modal-text cap">city</p>
-                    <hr>
-                    <p class="modal-text">(555) 555-5555</p>
-                    <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-                    <p class="modal-text">Birthday: 10/21/2015</p>
+        
+    gallery.addEventListener('click',  (e) => {
+        //this insures the modal will be displayed if the user
+        //clicks anywhere on the employee card
+        if(e.target.className !== "gallery" ){
+            console.log(e.target);
+            employees.forEach(employee => {
+                addHTML(doc, `
+                <div class="modal-container">
+                 <div class="modal">
+                    <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                        <div class="modal-info-container">
+                            <img class="modal-img" src=${employee.picture.large} alt="profile picture">
+                            <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
+                            <p class="modal-text">${employee.email}</p>
+                            <p class="modal-text cap">${employee.location.city}</p>
+                            <hr>
+                            <p class="modal-text">${employee.cell}</p>
+                            <p class="modal-text">${employee.location.street}, ${employee.location.country}, ${employee.location.postcode}</p>
+                            <p class="modal-text">Birthday: ${employee.dob.date}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            `);    
-        }
-    }));
+                 `);                    
+            })
+        }        
+        })
+
+    //work in progress//
+ 
+ 
+        
+
+    });
+
+    
+        
+ 
 
     
 
