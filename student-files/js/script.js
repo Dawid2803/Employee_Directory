@@ -87,26 +87,26 @@ getEmployeeData('https://randomuser.me/api/?results=12')
         gallery.addEventListener('click',  (e) => {
         //this insures the modal will be displayed if the user
             //clicks anywhere on the employee card
+                //work in progress//
+
             if(e.target.className !== "gallery" ){
+                const employeeCard = document.querySelector(`.card`);
+                const employeeCardName = employeeCard.lastElementChild.firstElementChild.textContent;
+                console.log(employeeCardName);
+
+                console.log(e.target);
                 const targetEmployeeCardName = e.target.querySelector('#name').textContent;
                 console.log(targetEmployeeCardName);
-                
                 for(let i=0; i < employees.length; i++){
                     const employeeName = `${employees[i].name.first} ${employees[i].name.last}`;
 
                     if(employeeName === targetEmployeeCardName){
                         modalContainers[i].style.display = 'block';
-                    }
-                }
-            
-            }        
+                        }
+                    }   
+           
+                }        
             })
-
-    //work in progress//
- 
- 
-        
-
     });
 
     
