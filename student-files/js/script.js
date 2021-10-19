@@ -59,32 +59,48 @@ getEmployeeData('https://randomuser.me/api/?results=12')
         
         })
         
-    gallery.addEventListener('click',  (e) => {
-        //this insures the modal will be displayed if the user
-        //clicks anywhere on the employee card
-        if(e.target.className !== "gallery" ){
-            console.log(e.target);
-            employees.forEach(employee => {
-                addHTML(doc, `
-                <div class="modal-container">
-                 <div class="modal">
-                    <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-                        <div class="modal-info-container">
-                            <img class="modal-img" src=${employee.picture.large} alt="profile picture">
-                            <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
-                            <p class="modal-text">${employee.email}</p>
-                            <p class="modal-text cap">${employee.location.city}</p>
-                            <hr>
-                            <p class="modal-text">${employee.cell}</p>
-                            <p class="modal-text">${employee.location.street}, ${employee.location.country}, ${employee.location.postcode}</p>
-                            <p class="modal-text">Birthday: ${employee.dob.date}</p>
-                        </div>
+        employees.forEach(employee => {
+            addHTML(doc, `
+            <div class="modal-container">
+             <div class="modal">
+                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                    <div class="modal-info-container">
+                        <img class="modal-img" src=${employee.picture.large} alt="profile picture">
+                        <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
+                        <p class="modal-text">${employee.email}</p>
+                        <p class="modal-text cap">${employee.location.city}</p>
+                        <hr>
+                        <p class="modal-text">${employee.cell}</p>
+                        <p class="modal-text">${employee.location.street}, ${employee.location.country}, ${employee.location.postcode}</p>
+                        <p class="modal-text">Birthday: ${employee.dob.date}</p>
                     </div>
                 </div>
-                 `);                    
+            </div>
+             `);
             })
-        }        
-        })
+        
+        const modalContainers = document.querySelectorAll('.modal-container');
+        modalContainers.forEach(modal => modal.style.display = 'none');
+
+
+
+        gallery.addEventListener('click',  (e) => {
+        //this insures the modal will be displayed if the user
+            //clicks anywhere on the employee card
+            if(e.target.className !== "gallery" ){
+                const targetEmployeeCardName = e.target.querySelector('#name').textContent;
+                console.log(targetEmployeeCardName);
+                
+                for(let i=0; i < employees.length; i++){
+                    const employeeName = `${employees[i].name.first} ${employees[i].name.last}`;
+
+                    if(employeeName === targetEmployeeCardName){
+                        modalContainers[i].style.display = 'block';
+                    }
+                }
+            
+            }        
+            })
 
     //work in progress//
  
