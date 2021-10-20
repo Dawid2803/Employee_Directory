@@ -79,20 +79,50 @@ getEmployeeData('https://randomuser.me/api/?results=12')
              `);
             })
         
+        // adds a close function for the modal-containers    
+        const closeButtons = document.querySelectorAll(".modal-close-btn");
+        closeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                //Targets the modal-container by means of DOM traversal
+                e.target.parentNode.parentNode.parentNode.style.display = 'none';
+            })
+        })
         const modalContainers = document.querySelectorAll('.modal-container');
-        modalContainers.forEach(modal => modal.style.display = 'none');
+        modalContainers.forEach(modal => {
+            modal.style.display = 'none';
 
+        });
+
+
+
+
+        // for(let i = 0; i < employees.length; i++){
+        //     employees[i].addEventListener('click', (e) => {
+        //         if(`${employees[i].name.first} ${employees[i].name.last}` === `${e.target.name.first} ${e.target.name.last}`){
+        //             modalContainers[i].style.display = 'block';
+        //             }
+        //         })
+        //     }
 
 
         gallery.addEventListener('click',  (e) => {
-        //this insures the modal will be displayed if the user
-            //clicks anywhere on the employee card
-                //work in progress//
+        // this insures the modal will be displayed if the user
+        //     clicks anywhere on the employee card
+        //         work in progress//
+
+           
+
+
+
+
+
+
+
 
             if(e.target.className !== "gallery" ){
-                const employeeCard = document.querySelector(`.card`);
+                const employeeCard = e.target;
                 const employeeCardName = employeeCard.lastElementChild.firstElementChild.textContent;
-                console.log(employeeCardName);
+                console.log(employeeCard);
 
                 console.log(e.target);
                 const targetEmployeeCardName = e.target.querySelector('#name').textContent;
@@ -100,12 +130,15 @@ getEmployeeData('https://randomuser.me/api/?results=12')
                 for(let i=0; i < employees.length; i++){
                     const employeeName = `${employees[i].name.first} ${employees[i].name.last}`;
 
-                    if(employeeName === targetEmployeeCardName){
+                    if(employeeName === employeeCardName){
                         modalContainers[i].style.display = 'block';
                         }
                     }   
-           
-                }        
+               }
+
+
+
+
             })
     });
 
