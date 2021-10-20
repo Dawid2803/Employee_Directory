@@ -84,7 +84,15 @@ getEmployeeData('https://randomuser.me/api/?results=12')
         closeButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 //Targets the modal-container by means of DOM traversal
+                console.log(e.target.parentNode.parentNode.parentNode);
+                if(e.target.parentNode.parentNode.parentNode.className === 'modal-container' ){
                 e.target.parentNode.parentNode.parentNode.style.display = 'none';
+                }//if e.target.parentNode.parentNode.parentNode === 'body', bug?
+                    //workaround for the bug for now
+                else{
+                    e.target.parentNode.parentNode.style.display = 'none';
+  
+                }
             })
         })
         const modalContainers = document.querySelectorAll('.modal-container');
