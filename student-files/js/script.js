@@ -33,6 +33,7 @@ async function getEmployeeData(url){
 
 }
 
+//adds search bar
 addHTML(search, `
 <form action="#" method="get">
     <input type="search" id="search-input" class="search-input" placeholder="Search...">
@@ -56,25 +57,27 @@ getEmployeeData('https://randomuser.me/api/?results=12&nat=us')
                     <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
                 </div>
             </div>`); 
-
-        
+      
         })
         
         employees.forEach(employee => {
 
-            
-            
-
-            
             //codeblock for getting actualBirthday
             //set employee.dob.date to a new Date
                 //declare a day,month and year variable from employee.dob.date
                 //concat the 3 variables by means of a literal template in the correct format
             const birthday = new Date(employee.dob.date);
             //add one to birthdayMonth because .getMonth method returns 0-11 for Jan-Dec
-            const birthdayMonth = (birthday.getMonth(birthday)) + 1;
-            const birthdayDay = birthday.getDate(birthday);
+            let birthdayMonth = (birthday.getMonth(birthday)) + 1;
+            let birthdayDay = birthday.getDate(birthday);
             const birthdayYear = birthday.getFullYear(birthday);
+            if(birthdayDay < 10){
+                birthdayDay = '0'+birthdayDay;
+            }
+            if(birthdayMonth < 10){
+                birthdayMonth = '0'+birthdayMonth;
+            }
+        
             const actualBirthday = `${birthdayMonth}/${birthdayDay}/${birthdayYear}`
             
             addHTML(doc, `
@@ -105,7 +108,7 @@ getEmployeeData('https://randomuser.me/api/?results=12&nat=us')
                 if(e.target.parentNode.parentNode.parentNode.className === 'modal-container' ){
                 e.target.parentNode.parentNode.parentNode.style.display = 'none';
                 }//if e.target.parentNode.parentNode.parentNode === 'body', bug?
-                    //workaround for the bug for now
+                    //workaround for the bug for now, any feedback will be appreciated
                 else{
                     e.target.parentNode.parentNode.style.display = 'none';
   
