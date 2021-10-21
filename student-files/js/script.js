@@ -61,11 +61,10 @@ getEmployeeData('https://randomuser.me/api/?results=12')
         })
         
         employees.forEach(employee => {
-            const onlyNumbers = employee.cell.replace(/[^0-9]$/, '');
-            //for birthday date.
-                //create new date
-                    //get day, get month, get year.
-                        //concat all 3 results into one string
+            
+           
+            
+
             
             //codeblock for getting actualBirthday
             //set employee.dob.date to a new Date
@@ -88,8 +87,8 @@ getEmployeeData('https://randomuser.me/api/?results=12')
                         <p class="modal-text">${employee.email}</p>
                         <p class="modal-text cap">${employee.location.city}</p>
                         <hr>
-                        <p class="modal-text">${employee.cell}</p>
-                        <p class="modal-text">${employee.location.street}, ${employee.location.country}, ${employee.location.postcode}</p>
+                        <p class="modal-text">(${employee.cell}</p>
+                        <p class="modal-text">${employee.location.street.name}, ${employee.location.street.number}, ${employee.location.country}, ${employee.location.postcode}</p>
                         <p class="modal-text">Birthday: ${actualBirthday}</p>
                     </div>
                 </div>
@@ -170,7 +169,15 @@ getEmployeeData('https://randomuser.me/api/?results=12')
 
     
         
- 
+    function formatCellphone(data) {
+    const onlyNumbers = data.match(/^\d*/g);
+    console.log('onlynumbers: '+onlyNumbers);
+        const expression = /^\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/g;
+        return data.replace(expression, "($1) $2-$3");
+      }
+
+
+
 
     
 
