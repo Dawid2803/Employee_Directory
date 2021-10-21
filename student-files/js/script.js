@@ -42,7 +42,7 @@ addHTML(search, `
 
 //uses the data fetched from the API and creates employee card objects with required
 //contact details
-getEmployeeData('https://randomuser.me/api/?results=12')
+getEmployeeData('https://randomuser.me/api/?results=12&nat=us')
     .then(employees => {
         employees.map(employee => {
             addHTML(gallery, ` 
@@ -63,9 +63,7 @@ getEmployeeData('https://randomuser.me/api/?results=12')
         employees.forEach(employee => {
 
             
-            const correctCell = formatCellphone(employee.cell);
             console.log('not formatted: '+employee.cell);
-            console.log('formatted: '+correctCell);
             
 
             
@@ -90,7 +88,7 @@ getEmployeeData('https://randomuser.me/api/?results=12')
                         <p class="modal-text">${employee.email}</p>
                         <p class="modal-text cap">${employee.location.city}</p>
                         <hr>
-                        <p class="modal-text">(${employee.cell}</p>
+                        <p class="modal-text">${employee.cell}</p>
                         <p class="modal-text">${employee.location.street.name}, ${employee.location.street.number}, ${employee.location.country}, ${employee.location.postcode}</p>
                         <p class="modal-text">Birthday: ${actualBirthday}</p>
                     </div>
@@ -172,17 +170,6 @@ getEmployeeData('https://randomuser.me/api/?results=12')
 
     
         
-    function formatCellphone(data) {
-        const onlyNumbers = data.replace(/^\D*/g,'');
-        console.log('onlyNumbers: '+onlyNumbers);
-        const cellFormatted = onlyNumbers.match(/^(\d{3})(\d{3})(\d{4})$/);
-        if(cellFormatted){
-            return `(${cellFormatted[1]}) ${cellFormatted[2]}-${cellFormatted[3]}`;
-            }
-        else{
-            return;
-        }
-    };
 
 
 
