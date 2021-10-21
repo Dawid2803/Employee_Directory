@@ -173,7 +173,7 @@ getEmployeeData('https://randomuser.me/api/?results=12')
     
         
     function formatCellphone(data) {
-        const onlyNumbers = data.replace(/^\D/g,'');
+        const onlyNumbers = data.replace(/^\D*/g,'');
         console.log('onlyNumbers: '+onlyNumbers);
         const cellFormatted = onlyNumbers.match(/^(\d{3})(\d{3})(\d{4})$/);
         if(cellFormatted){
