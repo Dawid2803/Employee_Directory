@@ -61,8 +61,11 @@ getEmployeeData('https://randomuser.me/api/?results=12')
         })
         
         employees.forEach(employee => {
+
             
-           
+            const correctCell = formatCellphone(employee.cell);
+            console.log('not formatted: '+employee.cell);
+            console.log('formatted: '+correctCell);
             
 
             
@@ -170,11 +173,17 @@ getEmployeeData('https://randomuser.me/api/?results=12')
     
         
     function formatCellphone(data) {
-    const onlyNumbers = data.match(/^\d*/g);
-    console.log('onlynumbers: '+onlyNumbers);
-        const expression = /^\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/g;
-        return data.replace(expression, "($1) $2-$3");
-      }
+        const onlyNumbers = data.replace(/^\D/g,'');
+        console.log('onlyNumbers: '+onlyNumbers);
+        const cellFormatted = onlyNumbers.match(/^(\d{3})(\d{3})(\d{4})$/);
+        if(cellFormatted){
+            return `(${cellFormatted[1]}) ${cellFormatted[2]}-${cellFormatted[3]}`;
+            }
+        else{
+            return;
+        }
+    };
+
 
 
 
