@@ -28,6 +28,7 @@ async function getData(url){
 async function getEmployeeData(url){
     const userData= await getData(url);
     employees = userData.results;
+    console.log(employees);
     return employees
 
 }
@@ -60,6 +61,23 @@ getEmployeeData('https://randomuser.me/api/?results=12')
         })
         
         employees.forEach(employee => {
+            const onlyNumbers = employee.cell.replace(/[^0-9]$/, '');
+            //for birthday date.
+                //create new date
+                    //get day, get month, get year.
+                        //concat all 3 results into one string
+            
+            //codeblock for getting actualBirthday
+            //set employee.dob.date to a new Date
+                //declare a day,month and year variable from employee.dob.date
+                //concat the 3 variables by means of a literal template in the correct format
+            const birthday = new Date(employee.dob.date);
+            //add one to birthdayMonth because .getMonth method returns 0-11 for Jan-Dec
+            const birthdayMonth = (birthday.getMonth(birthday)) + 1;
+            const birthdayDay = birthday.getDate(birthday);
+            const birthdayYear = birthday.getFullYear(birthday);
+            const actualBirthday = `${birthdayMonth}/${birthdayDay}/${birthdayYear}`
+            
             addHTML(doc, `
             <div class="modal-container">
              <div class="modal">
@@ -72,11 +90,11 @@ getEmployeeData('https://randomuser.me/api/?results=12')
                         <hr>
                         <p class="modal-text">${employee.cell}</p>
                         <p class="modal-text">${employee.location.street}, ${employee.location.country}, ${employee.location.postcode}</p>
-                        <p class="modal-text">Birthday: ${employee.dob.date}</p>
+                        <p class="modal-text">Birthday: ${actualBirthday}</p>
                     </div>
                 </div>
             </div>
-             `);
+             `)
             })
         
         // adds a close function for the modal-containers    
