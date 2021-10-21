@@ -63,7 +63,6 @@ getEmployeeData('https://randomuser.me/api/?results=12&nat=us')
         employees.forEach(employee => {
 
             
-            console.log('not formatted: '+employee.cell);
             
 
             
@@ -119,53 +118,26 @@ getEmployeeData('https://randomuser.me/api/?results=12&nat=us')
 
         });
 
+        //adds EventListeners to all cards
+            //if employeeName of current loop itiration === employee name of event target
+            //display the modalcontainer of said employee
+        const employeeCards = document.querySelectorAll(".card"); 
+        employeeCards.forEach(employeeCard => {
+            employeeCard.addEventListener('click', (e) => {
+                const employeeCardName = e.currentTarget.querySelector("#name").textContent;
 
-
-
-        // for(let i = 0; i < employees.length; i++){
-        //     employees[i].addEventListener('click', (e) => {
-        //         if(`${employees[i].name.first} ${employees[i].name.last}` === `${e.target.name.first} ${e.target.name.last}`){
-        //             modalContainers[i].style.display = 'block';
-        //             }
-        //         })
-        //     }
-
-
-        gallery.addEventListener('click',  (e) => {
-        // this insures the modal will be displayed if the user
-        //     clicks anywhere on the employee card
-        //         work in progress//
-
-           
-
-
-
-
-
-
-
-
-            if(e.target.className !== "gallery" ){
-                const employeeCard = e.target;
-                const employeeCardName = employeeCard.lastElementChild.firstElementChild.textContent;
-                console.log(employeeCard);
-
-                console.log(e.target);
-                const targetEmployeeCardName = e.target.querySelector('#name').textContent;
-                console.log(targetEmployeeCardName);
                 for(let i=0; i < employees.length; i++){
                     const employeeName = `${employees[i].name.first} ${employees[i].name.last}`;
+
 
                     if(employeeName === employeeCardName){
                         modalContainers[i].style.display = 'block';
                         }
-                    }   
-               }
-
-
-
-
+                    }
             })
+        })
+
+
     });
 
     
